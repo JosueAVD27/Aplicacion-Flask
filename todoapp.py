@@ -19,7 +19,7 @@ def enviar():                                                       #crea la fun
         email_tarea = request.form['email_tarea']                   #Extrae los datos ingresados en el input del correo electronico
         prioridad_tarea = request.form['prioridad_tarea']           #Extrae los datos ingresados en el input de la prioridad
         #Crea la condicion de que no guarde el registro cuando el campo de la tarea y el del correo estan vacios
-        if descripcion_tarea == '' or email_tarea == '':            
+        if descripcion_tarea == '' or email_tarea == '' or prioridad_tarea == '':            
             return redirect(url_for('index'))                       
         else:
             #Agrega a la lista los campos llenos

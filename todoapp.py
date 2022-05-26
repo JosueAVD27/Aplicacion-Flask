@@ -1,9 +1,7 @@
 #Importamos las librerias
 from flask import Flask, redirect, render_template, request, url_for
-
 #Intanciar la aplicacion
 app = Flask(__name__, template_folder='templates')
-
 
 #Array donde almacenaremos los datos
 lista_tarea = []
@@ -28,7 +26,16 @@ def enviar():                                                       #crea la fun
             lista_tarea.append({'descripcion_tarea': descripcion_tarea, 'email_tarea': email_tarea, 'prioridad_tarea': prioridad_tarea })
             return redirect(url_for('index'))
 
-
+#Controlador de la ruta para borrar los datos de la tabla
+@app.route('/borrar', methods=['POST'])
+def borrar():                                                       #Crea la funcion de borrar la lista creada
+    if request.method == 'POST':                                    #solicita al metodo post
+        if lista_tarea == []:                                       #crea la condicional de la lista vacia
+            return redirect(url_for('index'))                       #Si la lista esta vacia ejecuta el index
+        else:
+            lista_tarea.clear()                                     #Elimina toda la lista
+            return redirect(url_for('index'))                       #Ejecuta el index
+        
 
 #main del programa
 if __name__ == '__main__':

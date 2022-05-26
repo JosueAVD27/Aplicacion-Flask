@@ -56,18 +56,46 @@
     
             </div>
             <!--BOTON PARA ENVIAR DATOS A LA TABLA-->
-            <button type="submit" class="">AGENDAR TAREA</button>
+            <button type="submit" class="btn boton_agregar">AGENDAR TAREA</button>
         </form>
     </section>
 
 
-
-
-
-
-
-
-
+    <section class="lista_datos">
+        <!--CONTROLADOR 2 - TABLA DE DATOS-->
+        <table class="table">
+            <thead class="table-dark">
+                <tr>
+                    <!--INGRESAMOS LAS VARIABLES QUE VAMOS A RECIBIR-->
+                    <th scope="col">DESCRIPCION DE LA TAREA</th>
+                    <th scope="col">CORREO ELECTRONICO</th>
+                    <th scope="col">PRIORIDAD</th>
+                    <th scope="col">ELIMINAR</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--ACCEDEMOS A LA LISTA CON UN FOR-->
+                {% for tarea in lista_tarea %}
+                <tr>
+                    <!--INERTA LA TAREA-->
+                    <th>{{tarea.descripcion_tarea}}</th>
+                    <!--INSERTA EL CORREO ELECTRONICO-->
+                    <th>{{tarea.email_tarea}}</th>
+                    <!--INSERTA LA PRIORIDAD DE LA TAREA-->
+                    <th>{{tarea.prioridad_tarea}}</th>
+                    <!--BOTON PARA ELIMINAR LA FILA-->
+                    <th>
+                        <button type="button" onClick="eliminarDiv(this)" class="btn btn-sm btn-danger pull-right">X</button>
+                    </th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <!--BOTON BORRAR TODOS LOS CAMPOS DE LA TABLA-->
+        <form action="{{url_for('borrar')}}" method="post" class="card-body">
+            <button type="submit" class="btn boton_eliminar">BORRAR</button>
+        </form>
+    </section>
 
     <!-- FOOTER -->
     <footer class="footer">
@@ -77,10 +105,14 @@
       </footer>
 </body>
 
-
+<script>
+// La función recibe el elemento button y a partir de ahí se busca el div donde esta contenido para eliminarlo
+function eliminarDiv(e){  
+  e.parentNode.remove(); //Si el div es el inmediatamente superior al botón podria ser mas facil con esta linea. 
+}
+</script>
 
 <style>
-
     /*header*/
     .container {
         width: 100%;
@@ -136,10 +168,32 @@
         margin-bottom: 20px;
     }
 
+    .boton_agregar{
+        border: solid 1px rgb(101, 101, 101);
+        padding: 15px 50px;
+        font-weight: bold;
+        color: rgb(91, 91, 91);
+    }
+
+    .boton_agregar:hover{
+        border: solid 1px rgb(26, 223, 0);
+        color: rgb(26, 223, 0);
+    }
+
+    .boton_eliminar{
+        border: solid 1px rgb(255, 0, 0);
+        padding: 15px 50px;
+        font-weight: bold;
+        color: rgb(255, 0, 0);
+        margin-bottom: 30px;
+    }
+
     /*Lista de datos*/
     .lista_datos{
         padding-left: 30px;
         padding-right: 30px;
+        text-align: center;
+        justify-content: center;
     }
 
 

@@ -1,0 +1,35 @@
+#Importamos las librerias
+from flask import Flask, redirect, render_template, request, url_for
+
+#Intanciar la aplicacion
+app = Flask(__name__, template_folder='templates')
+
+
+#Array donde almacenaremos los datos
+lista_tarea = []
+
+#Decorador para definir la ruta
+@app.route('/')
+def index():
+    return render_template('inicio.html', lista_tarea = lista_tarea)
+
+#Controlador de la ruta de envio de datos
+@app.route('/enviar', methods=['POST'])                             
+def enviar():                                                       #crea la funcion enviar
+    if request.method == 'POST':                                    #Condicion que solicita que el metodo sea igual a post
+        descripcion_tarea = request.form['descripcion_tarea']       #Extrae los datos ingresados en el input de la descripcion de la tarea
+        email_tarea = request.form['email_tarea']                   #Extrae los datos ingresados en el input del correo electronico
+        prioridad_tarea = request.form['prioridad_tarea']           #Extrae los datos ingresados en el input de la prioridad
+        #Crea la condicion de que no guarde el registro cuando el campo de la tarea y el del correo estan vacios
+        if descripcion_tarea == '' or email_tarea == '':            
+            return redirect(url_for('index'))                       
+        else:
+            #Agrega a la lista los campos llenos
+            lista_tarea.append({'descripcion_tarea': descripcion_tarea, 'email_tarea': email_tarea, 'prioridad_tarea': prioridad_tarea })
+            return redirect(url_for('index'))
+
+
+
+#main del programa
+if __name__ == '__main__':
+    app.run(debug=True)     #debug para reiniciar el servidor

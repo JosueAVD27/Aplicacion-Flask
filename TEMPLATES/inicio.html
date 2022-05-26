@@ -25,6 +25,40 @@
     </header>
 
     
+    <!-- INGRESO DE DATOS -->
+    <section class="Ingreso_datos">
+        <form method="post" action="{{url_for('enviar')}}">
+            <div align="center" class="form-group">
+                <!--FORMULARIO DE INGRESO DE DATOS-->
+                <div class="form-group col-md-6">
+                    <!-- DESCRIPCION DE TAREA -->
+                    <label><b>TAREA</b></label>
+                    <input type="text" class="form-control" placeholder="Ingrese una tarea" name="descripcion_tarea">
+                </div>
+    
+                <div class="form-group col-md-6">
+                    <!-- CORREO ELECTRONICO -->
+                    <label><b>CORREO ELECTRONICO</b></label>
+                    <input type="email" class="form-control" placeholder="Ingrese un correo electronico" name="email_tarea">
+                </div>
+    
+                <!-- LISTA DE OPCIONES -->
+                <div class="form-group col-md-6">
+                    <!-- LISTA DE PRIORIDAD -->
+                    <label><b>PRIORIDAD</b></label>
+                    <select class="form-control" name="prioridad_tarea">
+                        <option value=""></option>
+                        <option value="BAJO">BAJO</option>
+                        <option value="MEDIO">MEDIO</option>
+                        <option value="ALTO">ALTO</option>
+                    </select>
+                </div>
+    
+            </div>
+            <!--BOTON PARA ENVIAR DATOS A LA TABLA-->
+            <button type="submit" class="">AGENDAR TAREA</button>
+        </form>
+    </section>
 
 
 
@@ -88,6 +122,25 @@
     }
 
 
+    /*Ingreso datos*/
+    .Ingreso_datos{
+        padding-top: 50px;
+        padding-bottom: 50px;
+        padding-left: 50px;
+        padding-right: 50px;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .form-control{
+        margin-bottom: 20px;
+    }
+
+    /*Lista de datos*/
+    .lista_datos{
+        padding-left: 30px;
+        padding-right: 30px;
+    }
 
 
     /*Footer*/

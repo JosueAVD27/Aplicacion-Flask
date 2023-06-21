@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/estilos.css') }}">
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+    <title>Lista de tareas</title>
+</head>
+
+<body>
+    <!-- CABEZERA -->
+    <header class="cabezera">
+        <div class="contenedor-logo">
+            <a href="/" class="logo">JOSUE V</a>
+            <div class="titulo">
+                <h1>LISTA DE TAREAS</h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- INGRESO DE DATOS -->
+    <section class="Ingreso_datos">
+        <form method="post" action="{{url_for('enviar')}}">
+            <div align="center" class="form-group">
+                <!--FORMULARIO DE INGRESO DE DATOS-->
+                <div class="form-group col-md-6">
+                    <!-- DESCRIPCION DE TAREA -->
+                    <label><b>TAREA</b></label>
+                    <input type="text" class="form-control" placeholder="Ingrese una tarea" name="descripcion_tarea">
+                </div>
+
+                <div class="form-group col-md-6">
+                    <!-- CORREO ELECTRONICO -->
+                    <label><b>CORREO ELECTRONICO</b></label>
+                    <input type="email" class="form-control" placeholder="Ingrese un correo electronico"
+                        name="email_tarea">
+                </div>
+
+                <!-- LISTA DE OPCIONES -->
+                <div class="form-group col-md-6">
+                    <!-- LISTA DE PRIORIDAD -->
+                    <label><b>PRIORIDAD</b></label>
+                    <select class="form-control" name="prioridad_tarea">
+                        <option value=""></option>
+                        <option value="BAJO">BAJO</option>
+                        <option value="MEDIO">MEDIO</option>
+                        <option value="ALTO">ALTO</option>
+                    </select>
+                </div>
+
+            </div>
+            <!--BOTON PARA ENVIAR DATOS A LA TABLA-->
+            <button type="submit" class="btn boton_agregar">AGENDAR TAREA</button>
+        </form>
+    </section>
+
+    <section class="lista_datos">
+        <!--CONTROLADOR 2 - TABLA DE DATOS-->
+        <table class="table">
+            <thead class="table-dark">
+                <tr>
+                    <!--INGRESAMOS LAS VARIABLES QUE VAMOS A RECIBIR-->
+                    <th scope="col">ID</th>
+                    <th scope="col">DESCRIPCION DE LA TAREA</th>
+                    <th scope="col">CORREO ELECTRONICO</th>
+                    <th scope="col">PRIORIDAD</th>
+                    <th scope="col">ELIMINAR</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--ACCEDEMOS A LA LISTA CON UN FOR-->
+                {% for tarea in lista_tarea %}
+                <tr>
+                    <!--INERTA EL ID-->
+                    <th>{{tarea.id}}</th>
+                    <!--INERTA LA TAREA-->
+                    <th>{{tarea.descripcion_tarea}}</th>
+                    <!--INSERTA EL CORREO ELECTRONICO-->
+                    <th>{{tarea.email_tarea}}</th>
+                    <!--INSERTA LA PRIORIDAD DE LA TAREA-->
+                    <th>{{tarea.prioridad_tarea}}</th>
+                    <!--BOTON PARA ELIMINAR LA FILA-->
+                    <th>
+                        <form action="{{ url_for('eliminar', id=tarea.id) }}" method="POST">
+                            <button type="submit" class="btn btn-sm btn-danger pull-right">X</button>
+                        </form>
+                    </th>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <!--BOTON BORRAR TODOS LOS CAMPOS DE LA TABLA-->
+        <form action="{{url_for('borrar')}}" method="post" class="card-body">
+            <button type="submit" class="btn boton_eliminar">BORRAR</button>
+        </form>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="contenedor-footer">
+            <small>&copy; 2022 <b>Universidad de las Fuerzas Armadas ESPE</b>
+        </div>
+    </footer>
+</body>
+</html>
